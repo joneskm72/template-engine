@@ -9,12 +9,13 @@
 
     <div>
         <div class="card-body">
-            <h5 class="card-title"><i class="fa fa-coffee"></i> Manager</h5>
+            <h5 class="card-title">{{ name }}</h5>
+            <h3><i class="fa fa-coffee"></i> {{ role }}</h3>
         </div>
         <ul class="list-group list-group-flush">
-            <li class="list-group-item">ID: </li>
-            <li class="list-group-item">Email: </li>
-            <li class="list-group-item">Office Number: </li>
+            <li class="list-group-item">ID: {{ id }}</li>
+            <li class="list-group-item">Email: {{ email }}</li>
+            <li class="list-group-item">Office Number: {{ office }}</li>
         </ul>
     </div>
  
