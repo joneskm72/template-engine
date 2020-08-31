@@ -1,3 +1,6 @@
+const inquirer = require('inquirer');
+
+
 const manager = [
     {
         type: "input",
@@ -66,3 +69,17 @@ const intern = [
         message: "Please enter the name of your school"
     }
 ];
+
+const employee = inquirer
+.prompt([
+  {
+    type: 'list',
+    name: 'role',
+    message: 'Please select your role',
+    choices: ['Manager', 'Engineer', "Intern"],
+  },
+])
+.then(answers => {
+  console.info('Answer:', answers.role);
+});
+
