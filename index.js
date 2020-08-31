@@ -83,3 +83,15 @@ const employee = inquirer
   console.info('Answer:', answers.role);
 });
 
+
+if (role === manager) {
+
+}
+
+else if (role === engineer) {
+
+}
+
+else (role === intern) {
+
+}
