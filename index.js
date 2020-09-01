@@ -19,7 +19,7 @@ const manager = [
     },
     {
         type: "input",
-        name: "office number",
+        name: "office-number",
         message: "Please enter your office number"
     }
 ];
@@ -85,13 +85,13 @@ const employee = inquirer
 
 
 if (role === manager) {
-
+    const newManager = (answers.name, answers.id, answers.email, answers.office-number);
 }
 
 else if (role === engineer) {
-
+ const newEngineer = (answers.name, answers.id, answers.email, answers.github);
 }
 
 else (role === intern) {
-
+    const newIntern = (answers.name, answers.id, answers.email, answers.school);
 }
