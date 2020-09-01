@@ -1,7 +1,17 @@
 const inquirer = require('inquirer');
+const Manager = require("./develop/lib/Manager");
+const Engineer = require("./develop/lib/Engineer");
+const Intern = require("./develop/lib/Intern");
+const path = require("path");
+const fs = require("fs");
+
+const OUTPUT_DIR = path.resolve(__dirname, "output");
+const outputPath = path.join(OUTPUT_DIR, "team.html");
+
+const render = require("./develop/lib/htmlRenderer");
 
 
-const employee = [
+const employeeQuestions = [
     {
         type: "input",
         name: "name",
@@ -19,15 +29,45 @@ const employee = [
     },
 ]
 
-const manager = [
+const managerQuestions = [
     {
         type: "input",
-        name: "office-number",
+        name: "name",
+        message: "Please enter your name",
+    },
+    {
+        type: "input",
+        name: "id",
+        message: "Please enter your ID"
+    },
+    {
+        type: "input",
+        name: "email",
+        message: "Please enter your email address"
+    },
+    {
+        type: "input",
+        name: "officeNumber",
         message: "Please enter your office number"
     }
 ];
 
-const engineer = [
+const engineerQuestions = [
+    {
+        type: "input",
+        name: "name",
+        message: "Please enter your name",
+    },
+    {
+        type: "input",
+        name: "id",
+        message: "Please enter your ID"
+    },
+    {
+        type: "input",
+        name: "email",
+        message: "Please enter your email address"
+    },
     {
         type: "input",
         name: "github",
@@ -35,7 +75,22 @@ const engineer = [
     }
 ];
 
-const intern = [
+const internQuestions = [
+    {
+        type: "input",
+        name: "name",
+        message: "Please enter your name",
+    },
+    {
+        type: "input",
+        name: "id",
+        message: "Please enter your ID"
+    },
+    {
+        type: "input",
+        name: "email",
+        message: "Please enter your email address"
+    },
     {
         type: "input",
         name: "school",
@@ -44,38 +99,86 @@ const intern = [
 ];
 
 const employees = [];
+const switchQuestion = [{
+    type: "list",
+    name: "continue",
+    message: "Would you like to add additional employees?",
+    choices: ["Manager", "Engineer", "Intern", "None"]
+}]
 
-function init() {
-    inquirer.prompt(employee).then(function(response){
+function switchStatement() {
+    inquirer.prompt(switchQuestion)
+    
+    .then(function(response) {
+        switch(response.continue) {
+            case "Manager":
+                init()
+              break;
+            case "Engineer":
+                addEngineer()
+              break;
+            case "Intern":
+                addIntern()
+            break;
+            default:
+                compileTeam()
+          }
         console.log(response)
+    
     })
 }
 
-const employeeRole = inquirer
-.prompt([
-  {
-    type: 'list',
-    name: 'role',
-    message: 'Please select your role',
-    choices: ['Manager', 'Engineer', "Intern"],
-  },
-])
-.then(answers => {
-  console.info('Answer:', answers.role);
-});
-
-
-if (role === manager) {
-    const newManager = (answers.name, answers.id, answers.email, answers.office-number);
-    employees.push(manager);
+function compileTeam() {
+    if(!fs.existsSync (OUTPUT_DIR)) {
+        fs.mkdirSync(OUTPUT_DIR)
+    }
+    fs.writeFileSync(outputPath, render(employees), "utf-8")
 }
 
-else if (role === engineer) {
- const newEngineer = (answers.name, answers.id, answers.email, answers.github);
- employees.push(engineer);
+function addEngineer() {
+    inquirer.prompt(engineerQuestions).then(function(response){
+        console.log(response);
+        const engineer = new Engineer (
+            response.name,
+            response.id,
+            response.email,
+            response.github
+        )
+        employees.push(engineer);
+        switchStatement();
+    })
 }
 
-else (role === intern) {
-    const newIntern = (answers.name, answers.id, answers.email, answers.school);
-    employees.push(intern);
+function addIntern() {
+    inquirer.prompt(internQuestions).then(function(response){
+        console.log(response);
+        const intern = new Intern (
+            response.name,
+            response.id,
+            response.email,
+            response.school
+        )
+        employees.push(intern);
+        switchStatement();
+    })
 }
+
+function init() {
+    inquirer.prompt(managerQuestions).then(function(response){
+        console.log(response);
+        const manager = new Manager (
+            response.name,
+            response.id,
+            response.email,
+            response.officeNumber
+        )
+        employees.push(manager);
+        switchStatement();
+    })
+}
+
+function exit() {
+    console.log("Goodbye");
+}
+
+init()

@@ -1,0 +1,22 @@
+{
+  "name": "template-engine",
+  "version": "1.0.0",
+  "description": "",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/joneskm72/template-engine.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/joneskm72/template-engine/issues"
+  },
+  "homepage": "https://github.com/joneskm72/template-engine#readme",
+  "dependencies": {
+    "inquirer": "^7.3.3"
+  }
+}
