@@ -34,7 +34,7 @@ After downloading the code, open Node and enter the manager information. After t
 
 ## Application Demo
 
-![alt text](team-generator.png)
+![alt text](assets/team-generator.png)
 
 ## Application Link
 
